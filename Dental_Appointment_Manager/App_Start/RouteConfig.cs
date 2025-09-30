@@ -13,11 +13,24 @@ namespace Dental_Appointment_Manager
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+
             routes.MapRoute(
-                name: "Default",
+                name: "ADMIN",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "ADMIN", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "LeTan",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "LeTan", action = "TrangChu", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
+                name: "User",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "User", action = "Trang_Chu", id = UrlParameter.Optional }
+            );
+
         }
     }
 }
