@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -45,6 +46,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -121,9 +128,26 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202509290440105_InitialCreate.cs" />
+    <Compile Include="Migrations\202509290440105_InitialCreate.Designer.cs">
+      <DependentUpon>202509290440105_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AppDbContext.cs" />
+    <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Models\Consulation.cs" />
+    <Compile Include="Models\Enums\AppointmentStatus.cs" />
+    <Compile Include="Models\Enums\PaymentStatus.cs" />
+    <Compile Include="Models\Enums\RoleTitle.cs" />
+    <Compile Include="Models\Medicine.cs" />
+    <Compile Include="Models\Patient_Record.cs" />
+    <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\Prescription.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -146,12 +170,189 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Resources\css\ajax-loader.gif" />
+    <Content Include="Resources\css\animate.css" />
+    <Content Include="Resources\css\aos.css" />
+    <Content Include="Resources\css\bootstrap-datepicker.css" />
+    <Content Include="Resources\css\bootstrap.min.css" />
+    <Content Include="Resources\css\bootstrap\bootstrap-grid.css" />
+    <Content Include="Resources\css\bootstrap\bootstrap-reboot.css" />
+    <Content Include="Resources\css\css\bootstrap-reboot.css" />
+    <Content Include="Resources\css\css\mixins\_text-hide.css" />
+    <Content Include="Resources\css\flaticon.css" />
+    <Content Include="Resources\css\icomoon.css" />
+    <Content Include="Resources\css\ionicons.min.css" />
+    <Content Include="Resources\css\jquery.timepicker.css" />
+    <Content Include="Resources\css\magnific-popup.css" />
+    <Content Include="Resources\css\open-iconic-bootstrap.min.css" />
+    <Content Include="Resources\css\owl.carousel.min.css" />
+    <Content Include="Resources\css\owl.theme.default.min.css" />
+    <Content Include="Resources\css\style.css" />
+    <Content Include="Resources\fonts\flaticon\backup.txt" />
+    <Content Include="Resources\fonts\flaticon\font\flaticon.css" />
+    <Content Include="Resources\fonts\flaticon\font\flaticon.html" />
+    <Content Include="Resources\fonts\flaticon\font\Flaticon.svg" />
+    <Content Include="Resources\fonts\icomoon\icomoon.svg" />
+    <Content Include="Resources\fonts\ionicons\css\ionicons.min.css" />
+    <Content Include="Resources\fonts\ionicons\fonts\ionicons.svg" />
+    <Content Include="Resources\fonts\open-iconic\open-iconic.svg" />
+    <Content Include="Resources\images\about-2.jpg" />
+    <Content Include="Resources\images\about.jpg" />
+    <Content Include="Resources\images\bg_1.jpg" />
+    <Content Include="Resources\images\bg_2.jpg" />
+    <Content Include="Resources\images\bg_3.jpg" />
+    <Content Include="Resources\images\gallery-1.jpg" />
+    <Content Include="Resources\images\gallery-2.jpg" />
+    <Content Include="Resources\images\gallery-3.jpg" />
+    <Content Include="Resources\images\gallery-4.jpg" />
+    <Content Include="Resources\images\image_1.jpg" />
+    <Content Include="Resources\images\image_2.jpg" />
+    <Content Include="Resources\images\image_3.jpg" />
+    <Content Include="Resources\images\image_4.jpg" />
+    <Content Include="Resources\images\image_5.jpg" />
+    <Content Include="Resources\images\image_6.jpg" />
+    <Content Include="Resources\images\loc.png" />
+    <Content Include="Resources\images\person_1.jpg" />
+    <Content Include="Resources\images\person_2.jpg" />
+    <Content Include="Resources\images\person_3.jpg" />
+    <Content Include="Resources\images\person_4.jpg" />
+    <Content Include="Resources\images\person_5.jpg" />
+    <Content Include="Resources\images\person_6.jpg" />
+    <Content Include="Resources\images\person_7.jpg" />
+    <Content Include="Resources\images\person_8.jpg" />
+    <Content Include="Resources\js\aos.js" />
+    <Content Include="Resources\js\bootstrap-datepicker.js" />
+    <Content Include="Resources\js\bootstrap.min.js" />
+    <Content Include="Resources\js\google-map.js" />
+    <Content Include="Resources\js\jquery-3.2.1.min.js" />
+    <Content Include="Resources\js\jquery-migrate-3.0.1.min.js" />
+    <Content Include="Resources\js\jquery.animateNumber.min.js" />
+    <Content Include="Resources\js\jquery.easing.1.3.js" />
+    <Content Include="Resources\js\jquery.magnific-popup.min.js" />
+    <Content Include="Resources\js\jquery.min.js" />
+    <Content Include="Resources\js\jquery.stellar.min.js" />
+    <Content Include="Resources\js\jquery.timepicker.min.js" />
+    <Content Include="Resources\js\jquery.waypoints.min.js" />
+    <Content Include="Resources\js\main.js" />
+    <Content Include="Resources\js\owl.carousel.min.js" />
+    <Content Include="Resources\js\popper.min.js" />
+    <Content Include="Resources\js\scrollax.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Resources\css\.DS_Store" />
+    <Content Include="Resources\css\bootstrap\.DS_Store" />
+    <Content Include="Resources\css\css\.DS_Store" />
+    <Content Include="Resources\fonts\.DS_Store" />
+    <Content Include="Resources\fonts\flaticon\.DS_Store" />
+    <Content Include="Resources\fonts\flaticon\font\Flaticon.eot" />
+    <Content Include="Resources\fonts\flaticon\font\Flaticon.ttf" />
+    <Content Include="Resources\fonts\flaticon\font\Flaticon.woff" />
+    <Content Include="Resources\fonts\flaticon\font\_flaticon.scss" />
+    <Content Include="Resources\fonts\flaticon\license\license.pdf" />
+    <Content Include="Resources\fonts\icomoon\icomoon.eot" />
+    <Content Include="Resources\fonts\icomoon\icomoon.ttf" />
+    <Content Include="Resources\fonts\icomoon\icomoon.woff" />
+    <Content Include="Resources\fonts\ionicons\css\_ionicons.scss" />
+    <Content Include="Resources\fonts\ionicons\fonts\.DS_Store" />
+    <Content Include="Resources\fonts\ionicons\fonts\ionicons.eot" />
+    <Content Include="Resources\fonts\ionicons\fonts\ionicons.ttf" />
+    <Content Include="Resources\fonts\ionicons\fonts\ionicons.woff" />
+    <Content Include="Resources\fonts\ionicons\fonts\ionicons.woff2" />
+    <Content Include="Resources\fonts\open-iconic\open-iconic.eot" />
+    <Content Include="Resources\fonts\open-iconic\open-iconic.otf" />
+    <Content Include="Resources\fonts\open-iconic\open-iconic.ttf" />
+    <Content Include="Resources\fonts\open-iconic\open-iconic.woff" />
+    <Content Include="Resources\images\.DS_Store" />
+    <Content Include="Resources\js\.DS_Store" />
+    <Content Include="Resources\scss\.DS_Store" />
+    <Content Include="Resources\scss\bootstrap\bootstrap-grid.scss" />
+    <Content Include="Resources\scss\bootstrap\bootstrap-reboot.scss" />
+    <Content Include="Resources\scss\bootstrap\bootstrap.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_alert.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_background-variant.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_badge.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_border-radius.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_box-shadow.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_breakpoints.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_buttons.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_caret.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_clearfix.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_float.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_forms.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_gradients.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_grid-framework.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_grid.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_hover.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_image.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_list-group.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_lists.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_nav-divider.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_pagination.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_reset-text.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_resize.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_screen-reader.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_size.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_table-row.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_text-emphasis.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_text-hide.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_text-truncate.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_transition.scss" />
+    <Content Include="Resources\scss\bootstrap\mixins\_visibility.scss" />
+    <Content Include="Resources\scss\bootstrap\utilities\_align.scss" />
+    <Content Include="Resources\scss\bootstrap\utilities\_background.scss" />
+    <Content Include="Resources\scss\bootstrap\utilities\_borders.scss" />
+    <Content Include="Resources\scss\bootstrap\utilities\_clearfix.scss" />
+    <Content Include="Resources\scss\bootstrap\utilities\_display.scss" />
+    <Content Include="Resources\scss\bootstrap\utilities\_embed.scss" />
+    <Content Include="Resources\scss\bootstrap\utilities\_flex.scss" />
+    <Content Include="Resources\scss\bootstrap\utilities\_float.scss" />
+    <Content Include="Resources\scss\bootstrap\utilities\_position.scss" />
+    <Content Include="Resources\scss\bootstrap\utilities\_screenreaders.scss" />
+    <Content Include="Resources\scss\bootstrap\utilities\_shadows.scss" />
+    <Content Include="Resources\scss\bootstrap\utilities\_sizing.scss" />
+    <Content Include="Resources\scss\bootstrap\utilities\_spacing.scss" />
+    <Content Include="Resources\scss\bootstrap\utilities\_text.scss" />
+    <Content Include="Resources\scss\bootstrap\utilities\_visibility.scss" />
+    <Content Include="Resources\scss\bootstrap\_alert.scss" />
+    <Content Include="Resources\scss\bootstrap\_badge.scss" />
+    <Content Include="Resources\scss\bootstrap\_breadcrumb.scss" />
+    <Content Include="Resources\scss\bootstrap\_button-group.scss" />
+    <Content Include="Resources\scss\bootstrap\_buttons.scss" />
+    <Content Include="Resources\scss\bootstrap\_card.scss" />
+    <Content Include="Resources\scss\bootstrap\_carousel.scss" />
+    <Content Include="Resources\scss\bootstrap\_close.scss" />
+    <Content Include="Resources\scss\bootstrap\_code.scss" />
+    <Content Include="Resources\scss\bootstrap\_custom-forms.scss" />
+    <Content Include="Resources\scss\bootstrap\_dropdown.scss" />
+    <Content Include="Resources\scss\bootstrap\_forms.scss" />
+    <Content Include="Resources\scss\bootstrap\_functions.scss" />
+    <Content Include="Resources\scss\bootstrap\_grid.scss" />
+    <Content Include="Resources\scss\bootstrap\_images.scss" />
+    <Content Include="Resources\scss\bootstrap\_input-group.scss" />
+    <Content Include="Resources\scss\bootstrap\_jumbotron.scss" />
+    <Content Include="Resources\scss\bootstrap\_list-group.scss" />
+    <Content Include="Resources\scss\bootstrap\_media.scss" />
+    <Content Include="Resources\scss\bootstrap\_mixins.scss" />
+    <Content Include="Resources\scss\bootstrap\_modal.scss" />
+    <Content Include="Resources\scss\bootstrap\_nav.scss" />
+    <Content Include="Resources\scss\bootstrap\_navbar.scss" />
+    <Content Include="Resources\scss\bootstrap\_pagination.scss" />
+    <Content Include="Resources\scss\bootstrap\_popover.scss" />
+    <Content Include="Resources\scss\bootstrap\_print.scss" />
+    <Content Include="Resources\scss\bootstrap\_progress.scss" />
+    <Content Include="Resources\scss\bootstrap\_reboot.scss" />
+    <Content Include="Resources\scss\bootstrap\_root.scss" />
+    <Content Include="Resources\scss\bootstrap\_tables.scss" />
+    <Content Include="Resources\scss\bootstrap\_tooltip.scss" />
+    <Content Include="Resources\scss\bootstrap\_transitions.scss" />
+    <Content Include="Resources\scss\bootstrap\_type.scss" />
+    <Content Include="Resources\scss\bootstrap\_utilities.scss" />
+    <Content Include="Resources\scss\bootstrap\_variables.scss" />
+    <Content Include="Resources\scss\style.scss" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -180,7 +381,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -208,6 +409,11 @@
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\jquery-3.7.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.0.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202509290440105_InitialCreate.resx">
+      <DependentUpon>202509290440105_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -242,7 +448,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

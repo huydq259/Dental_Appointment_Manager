@@ -1,0 +1,1 @@
+CREATE DATABASE Dental_Appointment_Manager
