@@ -128,13 +128,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202509290440105_InitialCreate.cs" />
     <Compile Include="Migrations\202509290440105_InitialCreate.Designer.cs">
       <DependentUpon>202509290440105_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202509300049306_UpdateModels3092025.cs" />
+    <Compile Include="Migrations\202509300049306_UpdateModels3092025.Designer.cs">
+      <DependentUpon>202509300049306_UpdateModels3092025.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppDbContext.cs" />
@@ -413,6 +416,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202509290440105_InitialCreate.resx">
       <DependentUpon>202509290440105_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202509300049306_UpdateModels3092025.resx">
+      <DependentUpon>202509300049306_UpdateModels3092025.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
