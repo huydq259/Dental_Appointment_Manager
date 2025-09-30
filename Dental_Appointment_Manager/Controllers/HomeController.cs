@@ -26,5 +26,10 @@ namespace Dental_Appointment_Manager.Controllers
 
             return View();
         }
+
+        public ActionResult LoginSystem()
+        {
+            return View();
+        }
     }
 }
